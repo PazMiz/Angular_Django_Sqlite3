@@ -1,0 +1,6 @@
+<div class="registration-form">
+  <input type="text" placeholder="Username" [(ngModel)]="username">
+  <input type="password" placeholder="Password" [(ngModel)]="password">
+  <button (click)="registerUser()">Register</button>
+  <p class="registration-message">{{ registrationMessage }}</p>
+</div>
