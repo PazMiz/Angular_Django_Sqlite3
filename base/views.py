@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework import serializers
-from .models import Product
+from .models import Product,Cart
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -11,9 +11,12 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAdminUser
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import serializers
+from django.shortcuts import get_object_or_404
+
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])  # Use AllowAny for unrestricted access
 def index(req):
     return Response("hello")
 
@@ -80,3 +83,27 @@ class products_view(APIView):
 
 
 
+
+
+
+class AddToCartSerializer(serializers.Serializer):
+    product_id = serializers.IntegerField()
+    quantity = serializers.IntegerField(default=1)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_to_cart(request):
+    product_id = request.data.get('product_id')
+    quantity = request.data.get('quantity', 1)
+    user_id = request.user.id
+
+    product = get_object_or_404(Product, id=product_id)
+
+    cart_item, created = Cart.objects.get_or_create(user_id=user_id, product=product)
+
+    if not created:
+        cart_item.quantity += quantity
+        cart_item.save()
+
+    return Response({'message': 'Product added to cart successfully'})
