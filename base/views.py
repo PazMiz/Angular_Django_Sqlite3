@@ -86,24 +86,24 @@ class products_view(APIView):
 
 
 
-class AddToCartSerializer(serializers.Serializer):
-    product_id = serializers.IntegerField()
-    quantity = serializers.IntegerField(default=1)
+# class AddToCartSerializer(serializers.Serializer):
+#     product_id = serializers.IntegerField()
+#     quantity = serializers.IntegerField(default=1)
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def add_to_cart(request):
-    product_id = request.data.get('product_id')
-    quantity = request.data.get('quantity', 1)
-    user_id = request.user.id
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def add_to_cart(request):
+#     product_id = request.data.get('product_id')
+#     quantity = request.data.get('quantity', 1)
+#     user_id = request.user.id
 
-    product = get_object_or_404(Product, id=product_id)
+#     product = get_object_or_404(Product, id=product_id)
 
-    cart_item, created = Cart.objects.get_or_create(user_id=user_id, product=product)
+#     cart_item, created = Cart.objects.get_or_create(user_id=user_id, product=product)
 
-    if not created:
-        cart_item.quantity += quantity
-        cart_item.save()
+#     if not created:
+#         cart_item.quantity += quantity
+#         cart_item.save()
 
-    return Response({'message': 'Product added to cart successfully'})
+#     return Response({'message': 'Product added to cart successfully'})
