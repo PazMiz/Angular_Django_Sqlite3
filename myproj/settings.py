@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)ky3qpy6v*k@k_e%q#pzd9s7(_oax=ts4o)a3i4^hxihar0z&%'
 DEBUG = True
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['angular-django-sqlite3-1.onrender.com', 'localhost']
 
 
 INSTALLED_APPS = [
@@ -145,4 +145,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     'https://gorgeous-choux-162286.netlify.app',
+
 ]
